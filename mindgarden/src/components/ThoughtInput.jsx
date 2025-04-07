@@ -15,45 +15,49 @@ function ThoughtInput() {
     localStorage.setItem('thoughts', JSON.stringify(thoughts))
   }, [thoughts])
 
-
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     if (!input.trim()) return
     const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
     const newThought = {
       id: crypto.randomUUID(), // Unique ID
       text: input.trim(),
-      date: new Date().toISOString().split('T')[0]
+      date: {
+        year: year,
+        month: month,
+        day: day
+      }
     }
 
     setThoughts(prev => [...prev, newThought])
     setInput('') // Clear input after submit
   }
-
-const today = new Date().toISOString().split('T')[0]
-
+  const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
+  const date = `${year}-${month}-${day}`
+  
+  const wholeDate = {
+    year: year,
+    month: month,
+    day: day
+  }
+// console.log(wholeDate)
+const newDate = new Date().toISOString().split("T")[0].split('-');
+console.log(date)
 // console.log(wholeDate)
 
 const hasThoughtForToday = (thoughts) => {
-    const thought = thoughts.some((thought) => thought.date == today)
+    const thought = thoughts.some((thought) => thought.date.day === day && thought.date.month === month && thought.date.year === year)
     return thought
   }
 //  console.log(hasThoughtForToday(thoughts))
-const isTodayLogged = hasThoughtForToday(thoughts)
 
-
-const ClearThoughts = (e) => {
-    e.preventDefault()
+const ClearThoughts = () => {
     localStorage.clear();
-    setThoughts([]) 
 }
-
-
-console.log(today)
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-4 space-y-4">
       <form onSubmit={handleSubmit} className="flex gap-2">
-      {!isTodayLogged ? (
+      {!hasThoughtForToday(thoughts) ? (
             <div>
                         <input
           type="text"
@@ -92,7 +96,7 @@ console.log(today)
             >
               <p className="text-sm">{t.text}</p>
               <p className="text-xs text-gray-500">
-                {`${t.date}`}
+                {`${t.date.day}/${t.date.month}/${t.date.year}`}
               </p>
      
             </div>
