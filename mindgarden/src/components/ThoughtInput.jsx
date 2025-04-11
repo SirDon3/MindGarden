@@ -46,7 +46,7 @@ console.log(date)
 // console.log(wholeDate)
 
 const hasThoughtForToday = (thoughts) => {
-    const thought = thoughts.some((thought) => thought.date.day === day && thought.date.month === month && thought.date.year === year)
+    const thought = thoughts.some((thought) => thought.date.day === day && thought.date.month === month && thought.date.year === day)
     return thought
   }
 //  console.log(hasThoughtForToday(thoughts))

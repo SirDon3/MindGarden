@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Plant from '../components/Plant';
 
 function Garden() {
 
@@ -7,27 +8,27 @@ function Garden() {
     const stored = localStorage.getItem('thoughts')
     return stored ? JSON.parse(stored) : []
   })
-const plants = ["🪻", "🌹", "🌼", "🌷", "🌺", "🌻", "🌸", "🏵️", "🪷"]
-  return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-4 space-y-4">
-      <h1 className="text-2xl font-bold">My Garden</h1>
-      <p className="text-gray-600">Welcome to your garden of thoughts!</p>
+
+  function getRandomInt() {
+    return  Math.floor(Math.random() * 7);
+     
+  }
+
+  const plantCount = getRandomInt()
+const emojis = ["🪻", "🌹", "🌼", "🌷", "🌺", "🌻", "🌸", "🏵️", "🪷"]
+return (
+  <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-4 space-y-4">
+      <h1 className="text-2xl font-bold text-center">Welcome to MindGarden</h1>
+      <p className="text-gray-600 text-center">Your personal space for thoughts and reflections.</p>
       <div className="space-y-4">
-    
-  
+          {thoughts.map((thought, index) => (
+              <Plant key={index} thought={thought} emoji={emojis[index % emojis.length]} />
+          ))}
       </div>
-      {thoughts.length === 0 ? (
-        <p>{thoughts.length} plants in your garden</p>
-      ) : (
-        thoughts.map((t) => (
-          <div key={t.id}> 
-            <p>{t.text} this {plants[1]}</p>
-          </div>
-          ))
-      
-      ) }
-    </div>
-  )
+  </div>
+);
+
+
   
   }
   
