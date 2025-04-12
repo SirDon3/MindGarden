@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Journal from './pages/Journal'
 import Garden from './pages/Garden'
 import Header from './components/Header'
+import Todo from './pages/Todo'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/garden" element={<Garden />} />
+          <Route path="/todo" element={<Todo />} />
         </Routes>
       </div>
     </Router>
