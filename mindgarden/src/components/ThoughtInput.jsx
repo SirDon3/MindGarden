@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import Plant from './Plant'
 function ThoughtInput() {
 
   const [thoughts, setThoughts] = useState(() => {
@@ -54,6 +54,8 @@ const hasThoughtForToday = (thoughts) => {
 const ClearThoughts = () => {
     localStorage.clear();
 }
+
+const emojis = ["🪻", "🌹", "🌼", "🌷", "🌺", "🌻", "🌸", "🏵️", "🪷"]
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-4 space-y-4">
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -89,18 +91,9 @@ const ClearThoughts = () => {
         {thoughts.length === 0 ? (
           <p className="text-gray-500 italic">No thoughts yet...</p>
         ) : (
-          thoughts.map((t) => (
-            <div
-              key={t.id}
-              className="bg-green-100 border border-green-300 rounded px-3 py-2"
-            >
-              <p className="text-sm">{t.text}</p>
-              <p className="text-xs text-gray-500">
-                {`${t.date.day}/${t.date.month}/${t.date.year}`}
-              </p>
-     
-            </div>
-          ))
+          <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+          {thoughts.map((thought, i) => (   <Plant key={i} thought={thought} emoji={emojis[i % emojis.length]} /> ))}
+          </div>
         )}
       </div>
     </div>
