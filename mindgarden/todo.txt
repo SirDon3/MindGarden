@@ -1,0 +1,4 @@
+Next Step: 
+1. Users should be able to added 3 thoughts per day, each of these thoughts should be displayed in the home screen.
+2. Shift from local storage to FireStore 
+3. Journal needs to be more unique, rather than just getting thoughts.. can we add somthing to make the app more specail?
