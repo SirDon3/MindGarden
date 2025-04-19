@@ -13,7 +13,7 @@ To build a simple, aesthetically pleasing daily thought tracker that encourages 
 ## 🧩 MVP Features
 
 ### ✅ Daily Thought Entry
-- One entry per day via a simple input box.
+- Three entry per day via a simple input box.
 
 ### ✅ Garden View
 - Each thought manifests as a visual element like a plant, flower, or tree.
