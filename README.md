@@ -49,15 +49,8 @@ To build a simple, aesthetically pleasing daily thought tracker that encourages 
 | ------------- | ------------------------- |
 | **Frontend**  | React (Vite or CRA)       |
 | **Styling**   | Tailwind CSS              |
-| **Persistence** | localStorage (Firebase later) |
-| **Animation** | Framer Motion or SVG      |
+| **Persistence** | localStorage            |
 | **Routing**   | react-router-dom          |
-
----
-
-## 🌱 Get Involved
-
-This project is a work in progress, and we welcome contributions, feedback, and ideas for growing the MindGarden together.
 
 ---
 
