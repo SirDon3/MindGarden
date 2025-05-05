@@ -18,6 +18,7 @@ function ThoughtInput() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!input.trim()) return
+    const emojis = ["🪻", "🌹", "🌼", "🌷", "🌺", "🌻", "🌸", "🏵️", "🪷"]
     const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
     const newThought = {
       id: crypto.randomUUID(), // Unique ID
@@ -26,79 +27,74 @@ function ThoughtInput() {
         year: year,
         month: month,
         day: day
-      }
+      },
+      plant: emojis[Math.floor(Math.random() * emojis.length)]
     }
 
     setThoughts(prev => [...prev, newThought])
     setInput('') // Clear input after submit
   }
  
- 
+ console.log(thoughts)
 
-const today = new Date().toISOString().split('T')[0]
+ const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
 
+ const thoughtsForToday = thoughts.filter(
+  (thought) =>
+    thought.date.day === day &&
+    thought.date.month === month &&
+    thought.date.year === year
+)
 
 
 const hasThoughtForToday = (thoughts) => {
-    const thought = thoughts.some(thought => thought.date === today)
-
-    return thought
-  }
-
+  const thought = thoughts.some((thought) => thought.date.day === day && thought.date.month === month && thought.date.year === year)
+  return thought
+}
   const isTodayLogged = hasThoughtForToday(thoughts)
+console.log(isTodayLogged)
 
-
-  const ClearThoughts = (e) => {
-    e.preventDefault()
-    localStorage.clear()
-    setThoughts([])
-  }
   
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-4 space-y-4">
-      <form onSubmit={handleSubmit} className="flex gap-2">
-      {!hasThoughtForToday(thoughts) ? (
-            <div>
-                        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-1 border border-gray-300 rounded px-3 py-2"
-          placeholder="What's on your mind?"
-        />
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        >
-          Plant 🌱
-        </button>
-            </div>
-        ): (<p>You’ve already planted your thought for today 🌼</p>)}
+    <form onSubmit={handleSubmit} className="flex items-center gap-x-4">
+      {!isTodayLogged ? (
+        <>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="border rounded p-2 flex-grow"
+            placeholder="What's on your mind?"
+          />
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            Plant 🌱
+          </button>
+        </>
+      ) : (
+        <p>You’ve already planted your thought for today <center>🌼</center></p>
+      )}
+    </form>
 
-      </form>
-
-      <form onSubmit={ClearThoughts} className="flex gap-2">
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        >
-          Clean 🌱
-        </button>
-      </form>
+  
+ 
       <div className="mt-4 space-y-2">
-        {thoughts.length === 0 ? (
-          <p className="text-gray-500 italic">No thoughts yet...</p>
-        ) : (
-          thoughts.map((t) => (
+      {thoughtsForToday.length === 0 ? (
+            <p className="text-gray-500 italic">No thoughts yet...</p>
+          ) : (
+            thoughtsForToday.map((t) => (
             <div
               key={t.id}
               className="bg-green-100 border border-green-300 rounded px-3 py-2"
             >
-              <p className="text-sm">{t.text}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-center bold pb-2">{t.text}</p>
+              <p className="text-center text-4xl">{t.plant}</p>
+              <p className="text-center pt-2 text-gray-500 ">
                 {`${t.date.day}/${t.date.month}/${t.date.year}`}
               </p>
-     
             </div>
           ))
         )}
